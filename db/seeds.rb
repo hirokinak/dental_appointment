@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+if Group.count == 0
+  (1..7).each do |n|
+    Group.create(name: "#{n}号車")
+  end
+end
