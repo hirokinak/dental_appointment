@@ -10,15 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_02_074640) do
+ActiveRecord::Schema.define(version: 2019_02_02_120311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.datetime "appointment_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "string"
+    t.bigint "group_id"
+    t.bigint "patient_id"
+    t.index ["group_id"], name: "index_appointments_on_group_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dental_treatments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "name"
+    t.string "kana"
+    t.integer "postcode"
+    t.integer "prefecture_code"
+    t.string "address_city"
+    t.string "address_street"
+    t.string "address_building"
+    t.text "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "appointment_id"
+    t.index ["appointment_id"], name: "index_patients_on_appointment_id"
   end
 
   create_table "user_groups", force: :cascade do |t|
